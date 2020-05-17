@@ -9,6 +9,8 @@ Deno uses the same API as in the web browser, events are managed using `Event` a
 * [MDN: EventTarget](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget)
 * [MDN: Event](https://developer.mozilla.org/en-US/docs/Web/API/Event)
 
+Using `EventTarget` as a separate object:
+
 ```js
 const et = new EventTarget()
 et.addEventListener('this-event', (e) => {
@@ -17,6 +19,8 @@ et.addEventListener('this-event', (e) => {
 et.dispatchEvent(new Event('this-event'))
 
 ```
+
+Inheriting from `EventTarget`:
 
 ```js
 class Car extends EventTarget {
