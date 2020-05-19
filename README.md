@@ -4,10 +4,13 @@ Useage notes for deno.
 
 ## Events
 
-Deno uses the same API as in the web browser, events are managed using `Event` and `EventTarget`.
+Deno uses the same API as in the web browser, events are managed using `Event` or `CustomEvent` and `EventTarget`.
 
 * [MDN: EventTarget](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget)
 * [MDN: Event](https://developer.mozilla.org/en-US/docs/Web/API/Event)
+* [MDN: CustomEvent (Supports Passing Data)](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent)
+
+_Note:_ The CustomEvent constructor requires an object with a detail attirbute as you can see below. Read more on the Mozilla documentation. 
 
 Using `EventTarget` as a separate object:
 
@@ -27,13 +30,23 @@ class Car extends EventTarget {
   startEngine() {
     this.dispatchEvent(new Event('start-engine'));
   }
+  revEngine() {
+    const evt = new CustomEvent('rev-engine', { detail: { rpm: 2000 } });
+    this.dispatchEvent(evt);
+  }
 }
 
 const car = new Car();
 car.addEventListener('start-engine', (e) => {
   console.log('Engine started and running...', e);
 });
+car.addEventListener('rev-engine', (e) => {
+  console.dir(e)
+  console.log('Engine revved - RPM:', e.detail.rpm);
+});
+
 car.startEngine();
+car.revEngine();
 ```
 ## Reading JSON Files
 
