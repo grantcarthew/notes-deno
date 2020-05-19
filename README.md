@@ -35,3 +35,14 @@ car.addEventListener('start-engine', (e) => {
 });
 car.startEngine();
 ```
+## Reading JSON Files
+
+Because `deno` can't import json files, you need to use the full path to the file and the `readJsonSync` and `path` standard modules.
+
+```js
+import { readJsonSync } from "https://deno.land/std/fs/mod.ts";
+import * as path from "https://deno.land/std/path/mod.ts";
+const pwd = path.fromFileUrl(path.dirname(import.meta.url));
+const join = (p) => path.join(pwd, p);
+const jsonSchema = readJsonSync(join("./schema.json"));
+```
