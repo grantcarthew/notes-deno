@@ -48,6 +48,18 @@ car.addEventListener('rev-engine', (e) => {
 car.startEngine();
 car.revEngine();
 ```
+
+ErrorEvent:
+
+```js
+const error = new ErrorEvent('a message', {
+    error : new Error('original error'),
+    message : 'another message',
+    lineno : 123,
+    filename : 'index.js'
+});
+```
+
 ## Reading JSON Files
 
 Because `deno` can't import json files, you need to use the full path to the file and the `readJsonSync` and `path` standard modules.
