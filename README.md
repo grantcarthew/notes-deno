@@ -71,3 +71,15 @@ const pwd = path.fromFileUrl(path.dirname(import.meta.url));
 const join = (p) => path.join(pwd, p);
 const jsonSchema = readJsonSync(join("./schema.json"));
 ```
+
+## Module Name
+
+Unfortunately, [Deno.cwd](https://deno.land/typedoc/index.html#cwd) does not work from inside imported modules. It only shows the working directory of the current application.
+
+On the positive side, `Deno` supports the ESM [import.meta.url](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import.meta) attribute, so you can extract the information.
+
+```js
+import * as path from "https://deno.land/std/path/mod.ts";
+const ext = path.extname(import.meta.url);
+const moduleName = path.basename(import.meta.url, ext);
+```
